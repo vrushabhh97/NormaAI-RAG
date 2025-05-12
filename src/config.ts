@@ -1,5 +1,5 @@
 // API configuration
-export const API_BASE_URL = 'http://localhost:5050'; // Replace with your Flask backend URL
+export const API_BASE_URL = 'https://normaai-rag-production.up.railway.app'; // Replace with your Flask backend URL
 
 // API endpoints
 export const API_ENDPOINTS = {

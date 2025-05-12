@@ -42,7 +42,13 @@ def upload_sop_to_faiss(file_path, session_id):
 
 def upload_to_faiss():
     try:
+        if 'file' not in request.files:
+            return jsonify({"error": "No file part in the request"}), 400
+            
         file = request.files['file']
+        if file.filename == '':
+            return jsonify({"error": "No file selected"}), 400
+            
         session_id = request.form.get('session_id')
         
         if not session_id:
@@ -69,6 +75,7 @@ def upload_to_faiss():
         
     except ValueError as e:
         # Handle specific validation errors
+        print(f"Validation error in upload_to_faiss: {str(e)}")
         return jsonify({"error": str(e)}), 400
     except Exception as e:
         # Log the full error for debugging

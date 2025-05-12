@@ -91,6 +91,10 @@ export function FileUploader({ onComparisonComplete }: FileUploaderProps) {
       const response = await fetch(API_ENDPOINTS.UPLOAD_TO_FAISS, {
         method: 'POST',
         body: formData,
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+        }
       });
       
       if (!response.ok) {
@@ -179,6 +183,10 @@ export function FileUploader({ onComparisonComplete }: FileUploaderProps) {
       const response = await fetch(API_ENDPOINTS.UPLOAD_PDF, {
         method: 'POST',
         body: formData,
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+        }
       });
       
       if (!response.ok) {

@@ -10,8 +10,9 @@ from rag_utils import upload_pdf_to_pinecone
 from faiss_routes import query_compare, ask_sop, upload_to_faiss
 
 app = Flask(__name__)
-# Configure CORS to allow requests from your frontend
-CORS(app, resources={r"/*": {"origins": "http://localhost:8080"}})
+# Configure CORS properly
+CORS(app, origins=["http://localhost:8080", "*"], supports_credentials=True, methods=["GET", "POST", "OPTIONS"], 
+     allow_headers=["Content-Type", "Authorization", "Accept"])
 
 #openai.api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
