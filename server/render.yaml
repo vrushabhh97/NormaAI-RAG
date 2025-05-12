@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: flask-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python fda_checker.py
+    envVars:
+      - key: OPENAI_API_KEY
+        value: OPENAI_API_KEY
+    plan: free
