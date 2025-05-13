@@ -11,7 +11,7 @@ COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose the port Flask uses
-EXPOSE 5050
+EXPOSE 8080
 
 # Set the entrypoint to run your app
 CMD ["python", "fda_checker.py"]
