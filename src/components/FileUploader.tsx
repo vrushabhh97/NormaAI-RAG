@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { Upload } from 'lucide-react';
+import { Upload, FileText, FileCheck } from 'lucide-react';
 import { API_ENDPOINTS } from '@/config';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -226,9 +226,21 @@ export function FileUploader({ onComparisonComplete }: FileUploaderProps) {
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="sop" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="sop">Upload SOP Document</TabsTrigger>
-            <TabsTrigger value="fda">Upload FDA Document</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 mb-6 p-0 h-auto bg-muted">
+            <TabsTrigger 
+              value="sop" 
+              className="flex items-center justify-center gap-1 px-10 py-3 rounded-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-medium"
+            >
+              <FileText className="h-4 w-4" /> 
+              <span>Upload SOP Document</span>
+            </TabsTrigger>
+            <TabsTrigger 
+              value="fda" 
+              className="flex items-center justify-center gap-1 px-6 py-3 rounded-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-medium"
+            >
+              <FileCheck className="h-4 w-4" /> 
+              <span>Upload FDA Document</span>
+            </TabsTrigger>
           </TabsList>
           
           {/* SOP Document Tab */}
