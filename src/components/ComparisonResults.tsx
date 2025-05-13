@@ -199,6 +199,8 @@ export function ComparisonResults({ comparisonData, sessionId }: ComparisonResul
   const isDarkTheme = useThemeDetector();
   // Add a ref for the chat container to enable scrolling
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  // Add state to track the active tab
+  const [activeTab, setActiveTab] = useState<string>("comparison");
   
   // Don't show raw output anymore - we'll focus on displaying the formatted data
   useEffect(() => {
@@ -649,9 +651,9 @@ export function ComparisonResults({ comparisonData, sessionId }: ComparisonResul
       <CardContent className="space-y-4">
         <Tabs defaultValue="comparison" className="flex flex-col h-full">
           <TabsList className="grid w-full grid-cols-3 sticky top-0 z-10 bg-background">
-            <TabsTrigger value="comparison">Comparison Results</TabsTrigger>
-            <TabsTrigger value="chat">Ask Questions</TabsTrigger>
-            <TabsTrigger value="actionItems">Action Items {actionItems.length > 0 && <Badge variant="outline" className="ml-2">{actionItems.length}</Badge>}</TabsTrigger>
+            <TabsTrigger value="comparison" onClick={() => setActiveTab("comparison")}>Comparison Results</TabsTrigger>
+            <TabsTrigger value="chat" onClick={() => setActiveTab("chat")}>Ask Questions</TabsTrigger>
+            <TabsTrigger value="actionItems" onClick={() => setActiveTab("actionItems")}>Action Items {actionItems.length > 0 && <Badge variant="outline" className="ml-2">{actionItems.length}</Badge>}</TabsTrigger>
           </TabsList>
           
           <div className="overflow-y-auto max-h-[55vh] pr-1">
@@ -847,12 +849,16 @@ export function ComparisonResults({ comparisonData, sessionId }: ComparisonResul
           Last updated: {new Date().toLocaleDateString()}
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={() => handleExport('csv')}>
-            <Download className="h-4 w-4 mr-2" /> CSV
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => handleExport('pdf')}>
-            <Download className="h-4 w-4 mr-2" /> PDF
-          </Button>
+          {activeTab === "comparison" && (
+            <Button variant="outline" size="sm" onClick={() => handleExport('pdf')}>
+              <Download className="h-4 w-4 mr-2" /> PDF
+            </Button>
+          )}
+          {activeTab === "actionItems" && actionItems.length > 0 && (
+            <Button variant="outline" size="sm" onClick={() => handleExport('csv')}>
+              <Download className="h-4 w-4 mr-2" /> CSV
+            </Button>
+          )}
         </div>
       </CardFooter>
     </Card>
