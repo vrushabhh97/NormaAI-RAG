@@ -17,7 +17,9 @@ CORS(app, origins=["http://localhost:8080", "*"], supports_credentials=True, met
 #openai.api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-UPLOAD_FOLDER = "/Users/vrushabhdeogirikar/Downloads/FDA Original.pdf"
+# Configure uploads folder from environment variable or use a default relative path
+UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER', 'uploads')
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
 #making csv checklist
@@ -47,9 +49,6 @@ Respond with just the action sentence.
         return jsonify({"action": response.choices[0].message['content'].strip()})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-UPLOAD_FOLDER = 'uploads'
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
 #uploading FDA doc to pinecone

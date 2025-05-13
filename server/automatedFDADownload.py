@@ -15,6 +15,9 @@ FDA_PAGE_URL = 'https://www.fda.gov/regulatory-information/search-fda-guidance-d
 PDF_DOWNLOAD_URL = 'https://www.fda.gov/media/149994/download'
 STORED_DATE_FILE = 'stored_upload_date.txt'
 
+# Use environment variable with fallback to a relative path
+PDF_DOWNLOAD_DIR = os.getenv('FDA_DOWNLOAD_DIR', './downloads')
+
 def fetch_upload_date():
     """Fetch the date with proper headers to avoid being blocked."""
     try:
@@ -60,12 +63,10 @@ def write_stored_date(date):
     with open(STORED_DATE_FILE, 'w') as file:
         file.write(date)
 
-
-
 def download_pdf(url, filename='fda_latest.pdf'):
     try:
         # Create the target directory if it doesn't exist
-        target_dir = '/Users/vrushabhdeogirikar/Desktop/fda_doc_download'
+        target_dir = PDF_DOWNLOAD_DIR
         os.makedirs(target_dir, exist_ok=True)
         
         # Create the full path for the file
