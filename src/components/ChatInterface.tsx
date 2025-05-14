@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -31,6 +31,7 @@ export function ChatInterface({ sessionId }: ChatInterfaceProps) {
   const [input, setInput] = useState('');
   const [showContext, setShowContext] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   
   // Update initial message when sessionId changes
   useEffect(() => {
@@ -45,6 +46,11 @@ export function ChatInterface({ sessionId }: ChatInterfaceProps) {
       ]);
     }
   }, [sessionId]);
+  
+  // Scroll to bottom when messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
   
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -111,8 +117,8 @@ export function ChatInterface({ sessionId }: ChatInterfaceProps) {
   };
   
   return (
-    <Card className="w-full h-full flex flex-col">
-      <CardHeader>
+    <Card className="w-full h-full flex flex-col min-h-[600px] lg:min-h-[700px]">
+      <CardHeader className="pb-3">
         <CardTitle>Ask About Your SOP</CardTitle>
         <CardDescription>
           Ask questions about your uploaded SOP document and get AI-powered insights
@@ -124,34 +130,34 @@ export function ChatInterface({ sessionId }: ChatInterfaceProps) {
           )}
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex-grow overflow-y-auto">
-        <div className="space-y-4">
+      <CardContent className="flex-grow overflow-y-auto px-4 pt-0 pb-4 h-[calc(100%-10rem)]">
+        <div className="space-y-6">
           {messages.map((message) => (
             <div
               key={message.id}
               className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[80%] rounded-lg p-3 ${
+                className={`max-w-[85%] rounded-lg p-4 ${
                   message.sender === 'user'
                     ? 'bg-primary text-primary-foreground'
                     : 'bg-muted'
                 }`}
               >
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-3">
                   {message.sender === 'ai' && (
-                    <div className="rounded-full bg-norma-400 p-1 mt-1">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <div className="rounded-full bg-norma-400 p-1.5 mt-0.5">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M19 5V19H5V5H19ZM21 3H3V21H21V3ZM17 17H7V16H17V17ZM17 14H7V13H17V14ZM17 11H7V10H17V11ZM14 8H7V7H14V8Z" fill="white"/>
                       </svg>
                     </div>
                   )}
-                  {message.sender === 'user' && <User className="w-4 h-4 mt-1 text-primary-foreground" />}
+                  {message.sender === 'user' && <User className="w-5 h-5 mt-0.5 text-primary-foreground" />}
                   <div>
-                    <p className={`text-sm ${message.sender === 'user' ? 'text-primary-foreground' : ''}`}>
+                    <p className={`text-md leading-relaxed ${message.sender === 'user' ? 'text-primary-foreground' : ''}`}>
                       {message.content}
                     </p>
-                    <p className={`text-xs mt-1 ${
+                    <p className={`text-xs mt-2 ${
                       message.sender === 'user' ? 'text-primary-foreground/70' : 'text-muted-foreground'
                     }`}>
                       {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -164,22 +170,25 @@ export function ChatInterface({ sessionId }: ChatInterfaceProps) {
           
           {isLoading && (
             <div className="flex justify-start">
-              <div className="max-w-[80%] rounded-lg p-3 bg-muted">
-                <div className="flex items-center gap-2">
-                  <div className="rounded-full bg-norma-400 p-1">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div className="max-w-[85%] rounded-lg p-4 bg-muted">
+                <div className="flex items-center gap-3">
+                  <div className="rounded-full bg-norma-400 p-1.5">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M19 5V19H5V5H19ZM21 3H3V21H21V3ZM17 17H7V16H17V17ZM17 14H7V13H17V14ZM17 11H7V10H17V11ZM14 8H7V7H14V8Z" fill="white"/>
                     </svg>
                   </div>
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-muted-foreground/60 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-muted-foreground/60 rounded-full animate-bounce delay-75"></div>
-                    <div className="w-2 h-2 bg-muted-foreground/60 rounded-full animate-bounce delay-150"></div>
+                  <div className="flex space-x-1.5">
+                    <div className="w-3 h-3 bg-muted-foreground/60 rounded-full animate-bounce"></div>
+                    <div className="w-3 h-3 bg-muted-foreground/60 rounded-full animate-bounce delay-75"></div>
+                    <div className="w-3 h-3 bg-muted-foreground/60 rounded-full animate-bounce delay-150"></div>
                   </div>
                 </div>
               </div>
             </div>
           )}
+          
+          {/* Empty div to scroll to */}
+          <div ref={messagesEndRef} />
         </div>
         
         {showContext && (
@@ -191,7 +200,7 @@ export function ChatInterface({ sessionId }: ChatInterfaceProps) {
           </div>
         )}
       </CardContent>
-      <CardFooter className="border-t pt-4">
+      <CardFooter className="border-t p-4">
         <div className="w-full space-y-4">
           <div className="flex items-center space-x-2">
             <Switch id="show-context" checked={showContext} onCheckedChange={setShowContext} />
@@ -200,6 +209,7 @@ export function ChatInterface({ sessionId }: ChatInterfaceProps) {
           
           <div className="flex w-full items-center space-x-2">
             <Input
+              className="text-md py-6"
               placeholder={sessionId ? "Ask about your SOP document..." : "Upload a document first..."}
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -208,12 +218,13 @@ export function ChatInterface({ sessionId }: ChatInterfaceProps) {
             />
             <Button 
               type="button" 
+              size="lg"
               onClick={handleSend} 
               disabled={!sessionId || isLoading || !input.trim()}
             >
               {isLoading ? 'Sending...' : (
                 <>
-                  <Send className="h-4 w-4 mr-2" />
+                  <Send className="h-5 w-5 mr-2" />
                   Send
                 </>
               )}

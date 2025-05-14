@@ -656,7 +656,7 @@ export function ComparisonResults({ comparisonData, sessionId }: ComparisonResul
             <TabsTrigger value="actionItems" onClick={() => setActiveTab("actionItems")}>Action Items {actionItems.length > 0 && <Badge variant="outline" className="ml-2">{actionItems.length}</Badge>}</TabsTrigger>
           </TabsList>
           
-          <div className="overflow-y-auto max-h-[55vh] pr-1">
+          <div className="overflow-y-auto max-h-[65vh] pr-1">
             <TabsContent value="comparison" className="space-y-4 mt-4">
               {comparisonResults.map(item => (
                 <Card key={item.id} className="overflow-hidden mb-4">
@@ -753,24 +753,24 @@ export function ComparisonResults({ comparisonData, sessionId }: ComparisonResul
               )}
             </TabsContent>
             
-            {/* New TabsContent for the chat interface */}
+            {/* Updated Chat Interface tab */}
             <TabsContent value="chat" className="mt-4">
               <div className="flex flex-col space-y-4">
                 <div 
                   ref={chatContainerRef}
-                  className={`rounded-lg p-4 h-64 overflow-y-auto flex flex-col space-y-4 ${
+                  className={`rounded-lg p-4 h-96 md:h-[400px] lg:h-[450px] overflow-y-auto flex flex-col space-y-6 ${
                     isDarkTheme ? 'bg-slate-800' : 'bg-slate-100'
                   }`}
                 >
                   {chatHistory.length === 0 ? (
                     <div className="flex flex-col items-center justify-center h-full text-center">
-                      <FileText className={`h-10 w-10 mb-2 ${
+                      <FileText className={`h-12 w-12 mb-3 ${
                         isDarkTheme ? 'text-slate-500' : 'text-slate-400'
                       }`} />
-                      <p className={isDarkTheme ? 'text-slate-400' : 'text-slate-500'}>
+                      <p className={`text-lg ${isDarkTheme ? 'text-slate-400' : 'text-slate-500'}`}>
                         No questions asked yet
                       </p>
-                      <p className={`text-sm mt-1 ${
+                      <p className={`text-sm mt-2 ${
                         isDarkTheme ? 'text-slate-500' : 'text-slate-400'
                       }`}>
                         Ask questions about your SOP or FDA regulations
@@ -778,27 +778,27 @@ export function ComparisonResults({ comparisonData, sessionId }: ComparisonResul
                     </div>
                   ) : (
                     chatHistory.map((chat, index) => (
-                      <div key={index} className="space-y-2">
+                      <div key={index} className="space-y-3">
                         {/* User message (right aligned) */}
                         <div className="flex justify-end">
-                          <div className={`max-w-[75%] p-3 rounded-lg rounded-tr-none ${
+                          <div className={`max-w-[85%] p-4 rounded-lg rounded-tr-none ${
                             isDarkTheme 
                               ? 'bg-blue-600 text-white' 
                               : 'bg-blue-500 text-white'
                           }`}>
-                            <p className="text-sm">{chat.question}</p>
+                            <p className="text-md">{chat.question}</p>
                           </div>
                         </div>
                         
                         {/* Assistant message (left aligned) */}
                         <div className="flex justify-start">
-                          <div className={`max-w-[75%] p-3 rounded-lg rounded-tl-none ${
+                          <div className={`max-w-[85%] p-4 rounded-lg rounded-tl-none ${
                             isDarkTheme 
                               ? 'bg-slate-700 text-slate-100' 
                               : 'bg-white border border-slate-200 text-slate-800'
                           }`}>
                             <div 
-                              className="text-sm prose-sm max-w-none"
+                              className="text-md prose-sm max-w-none leading-relaxed"
                               dangerouslySetInnerHTML={{ 
                                 __html: formatChatAnswer(chat.answer, isDarkTheme) 
                               }}
@@ -815,7 +815,7 @@ export function ComparisonResults({ comparisonData, sessionId }: ComparisonResul
                     value={question}
                     onChange={(e) => setQuestion(e.target.value)}
                     placeholder="Ask about your SOP or FDA regulations..."
-                    className={`flex-1 ${
+                    className={`flex-1 py-6 text-md ${
                       isDarkTheme 
                         ? 'bg-slate-700 border-slate-600 text-slate-200 placeholder:text-slate-400' 
                         : 'bg-white border-slate-200 text-slate-700 placeholder:text-slate-400'
@@ -825,13 +825,18 @@ export function ComparisonResults({ comparisonData, sessionId }: ComparisonResul
                   <Button 
                     onClick={handleAskQuestion} 
                     disabled={!sessionId || isLoading}
+                    size="lg"
                     className={
                       isDarkTheme 
                         ? 'bg-blue-600 hover:bg-blue-500 text-white' 
                         : 'bg-primary hover:bg-primary/90'
                     }
                   >
-                    {isLoading ? 'Loading...' : 'Ask'}
+                    {isLoading ? 'Loading...' : (
+                      <>
+                        <span className="mr-2">Ask</span>
+                      </>
+                    )}
                   </Button>
                 </div>
                 <p className={`text-xs ${
