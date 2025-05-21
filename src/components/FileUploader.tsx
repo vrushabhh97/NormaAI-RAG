@@ -229,14 +229,14 @@ export function FileUploader({ onComparisonComplete }: FileUploaderProps) {
           <TabsList className="grid w-full grid-cols-2 mb-6 p-0 h-auto bg-muted">
             <TabsTrigger 
               value="sop" 
-              className="flex items-center justify-center gap-1 px-10 py-3 rounded-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-medium"
+              className="flex items-center justify-center gap-1 px-10 py-3 rounded-tl-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-medium"
             >
               <FileText className="h-4 w-4" /> 
               <span>Your Document</span>
             </TabsTrigger>
             <TabsTrigger 
               value="fda" 
-              className="flex items-center justify-center gap-1 px-6 py-3 rounded-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-medium"
+              className="flex items-center justify-center gap-1 px-6 py-3 rounded-tr-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-medium"
             >
               <FileCheck className="h-4 w-4" /> 
               <span>Regulation Document</span>

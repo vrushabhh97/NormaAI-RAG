@@ -51,8 +51,6 @@ const Dashboard = () => {
       <Header />
       
       <main className="w-full py-2 px-4">
-        <h1 className="text-3xl font-bold mb-3 px-2">Dashboard</h1>
-        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {/* Left Column - Upload Section */}
           <div className="md:col-span-1">

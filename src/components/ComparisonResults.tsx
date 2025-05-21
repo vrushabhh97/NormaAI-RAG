@@ -769,11 +769,6 @@ export function ComparisonResults({ comparisonData, sessionId }: ComparisonResul
                       <p className={`text-lg ${isDarkTheme ? 'text-slate-400' : 'text-slate-500'}`}>
                         No questions asked yet
                       </p>
-                      <p className={`text-sm mt-2 ${
-                        isDarkTheme ? 'text-slate-500' : 'text-slate-400'
-                      }`}>
-                        Ask questions about your SOP or FDA regulations
-                      </p>
                     </div>
                   ) : (
                     chatHistory.map((chat, index) => (
@@ -838,26 +833,21 @@ export function ComparisonResults({ comparisonData, sessionId }: ComparisonResul
                     )}
                   </Button>
                 </div>
-                <p className={`text-xs ${
-                  isDarkTheme ? 'text-slate-400' : 'text-muted-foreground'
-                }`}>
-                  Ask questions about your SOP document and FDA regulations. The system will search both sources to provide a comprehensive answer.
-                </p>
               </div>
             </TabsContent>
           </div>
         </Tabs>
       </CardContent>
-      <CardFooter className="flex justify-between border-t pt-4">
+      <CardFooter className="flex justify-between border-t py-3">
         <div className="flex gap-2">
           {activeTab === "comparison" && (
             <Button variant="outline" size="sm" onClick={() => handleExport('pdf')}>
-              <Download className="h-4 w-4 mr-2" /> PDF
+              <Download className="h-4 w-4 mr-2" />PDF Report
             </Button>
           )}
           {activeTab === "actionItems" && actionItems.length > 0 && (
             <Button variant="outline" size="sm" onClick={() => handleExport('csv')}>
-              <Download className="h-4 w-4 mr-2" /> CSV
+              <Download className="h-4 w-4 mr-2" />CSV Action Items
             </Button>
           )}
         </div>
