@@ -623,7 +623,7 @@ export function ComparisonResults({ comparisonData, sessionId }: ComparisonResul
     return (
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>FDA Compliance Analysis</CardTitle>
+          <CardTitle>Compliance Analysis</CardTitle>
           <CardDescription>
             Upload a document to see compliance analysis results
           </CardDescription>
@@ -642,10 +642,9 @@ export function ComparisonResults({ comparisonData, sessionId }: ComparisonResul
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>FDA Compliance Analysis</CardTitle>
+        <CardTitle>Compliance Analysis</CardTitle>
         <CardDescription>
-          Comparison of your SOP document against FDA regulatory requirements
-          {sessionId && <span className="text-xs mt-1 block">Session ID: {sessionId}</span>}
+          Comparison of your document against regulatory requirements
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -691,13 +690,13 @@ export function ComparisonResults({ comparisonData, sessionId }: ComparisonResul
                   <CardContent className="p-4 pt-2">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <p className="text-sm font-medium text-primary">FDA Requirement:</p>
+                        <p className="text-sm font-medium text-primary">Regulatory Requirement:</p>
                         <div className="bg-muted/50 p-3 rounded-md">
                           <p className="text-sm text-muted-foreground">{item.fdaSummary}</p>
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <p className="text-sm font-medium text-primary">Your SOP:</p>
+                        <p className="text-sm font-medium text-primary">Your Document:</p>
                         <div className="bg-muted/50 p-3 rounded-md">
                           <p className="text-sm text-muted-foreground">{item.sopSummary}</p>
                         </div>
@@ -814,7 +813,7 @@ export function ComparisonResults({ comparisonData, sessionId }: ComparisonResul
                     type="text"
                     value={question}
                     onChange={(e) => setQuestion(e.target.value)}
-                    placeholder="Ask about your SOP or FDA regulations..."
+                    placeholder="Ask about your document or regulatory requirements..."
                     className={`flex-1 py-6 text-md ${
                       isDarkTheme 
                         ? 'bg-slate-700 border-slate-600 text-slate-200 placeholder:text-slate-400' 
@@ -850,9 +849,6 @@ export function ComparisonResults({ comparisonData, sessionId }: ComparisonResul
         </Tabs>
       </CardContent>
       <CardFooter className="flex justify-between border-t pt-4">
-        <div className="text-sm text-muted-foreground">
-          Last updated: {new Date().toLocaleDateString()}
-        </div>
         <div className="flex gap-2">
           {activeTab === "comparison" && (
             <Button variant="outline" size="sm" onClick={() => handleExport('pdf')}>

@@ -53,7 +53,7 @@ const Dashboard = () => {
       <main className="w-full py-2 px-4">
         <h1 className="text-3xl font-bold mb-3 px-2">Dashboard</h1>
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {/* Left Column - Upload Section */}
           <div className="md:col-span-1">
             <FileUploader onComparisonComplete={handleComparisonComplete} />
@@ -72,10 +72,6 @@ const Dashboard = () => {
                     <span>{documentInfo.uploadDate}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Chunks:</span>
-                    <span>{documentInfo.chunks}</span>
-                  </div>
-                  <div className="flex justify-between">
                     <span className="text-muted-foreground">Session ID:</span>
                     <span className="text-xs text-muted-foreground">{sessionId}</span>
                   </div>
@@ -89,7 +85,7 @@ const Dashboard = () => {
           </div>
           
           {/* Right Column - FDA Compliance Analysis */}
-          <div className="md:col-span-3">
+          <div className="md:col-span-2">
             <ComparisonResults comparisonData={comparisonData} sessionId={sessionId} />
           </div>
         </div>

@@ -221,7 +221,7 @@ export function FileUploader({ onComparisonComplete }: FileUploaderProps) {
       <CardHeader>
         <CardTitle>Document Upload</CardTitle>
         <CardDescription>
-          Upload SOP or FDA documents for analysis and comparison
+          Upload Your SOP or Policy and Regulatory documents (e.g. FDA) for analysis and comparison
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -232,14 +232,14 @@ export function FileUploader({ onComparisonComplete }: FileUploaderProps) {
               className="flex items-center justify-center gap-1 px-10 py-3 rounded-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-medium"
             >
               <FileText className="h-4 w-4" /> 
-              <span>Upload SOP Document</span>
+              <span>Your Document</span>
             </TabsTrigger>
             <TabsTrigger 
               value="fda" 
               className="flex items-center justify-center gap-1 px-6 py-3 rounded-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-medium"
             >
               <FileCheck className="h-4 w-4" /> 
-              <span>Upload FDA Document</span>
+              <span>Regulation Document</span>
             </TabsTrigger>
           </TabsList>
           
@@ -247,10 +247,10 @@ export function FileUploader({ onComparisonComplete }: FileUploaderProps) {
           <TabsContent value="sop">
             <form onSubmit={handleSopSubmit} className="space-y-4">
               <div className="grid gap-2">
-                <Label htmlFor="session-name">Session Name</Label>
+                <Label htmlFor="session-name">Document Label</Label>
                 <Input
                   id="session-name"
-                  placeholder="Enter a descriptive name for this session"
+                  placeholder="Enter a descriptive label for your document"
                   value={sessionName}
                   onChange={(e) => setSessionName(e.target.value)}
                   disabled={isUploadingSop}
@@ -258,7 +258,7 @@ export function FileUploader({ onComparisonComplete }: FileUploaderProps) {
               </div>
               
               <div className="grid gap-2">
-                <Label htmlFor="sop-file-upload">Upload SOP PDF Document</Label>
+                <Label htmlFor="sop-file-upload">Upload SOP/Policy Document</Label>
                 <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 flex flex-col items-center justify-center gap-2">
                   {sopFile ? (
                     <div className="flex items-center gap-2">
@@ -271,7 +271,7 @@ export function FileUploader({ onComparisonComplete }: FileUploaderProps) {
                     <>
                       <Upload className="h-8 w-8 text-muted-foreground" />
                       <p className="text-sm text-muted-foreground text-center">
-                        Drag & drop your SOP PDF here or click to browse
+                        Click to browse
                       </p>
                     </>
                   )}
@@ -289,18 +289,8 @@ export function FileUploader({ onComparisonComplete }: FileUploaderProps) {
                 </div>
               </div>
               
-              {isUploadingSop && (
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>{sopStage === 'upload' ? 'Uploading...' : 'Processing document...'}</span>
-                    <span>{sopProgress}%</span>
-                  </div>
-                  <Progress value={sopProgress} />
-                </div>
-              )}
-              
               <Button type="submit" onClick={handleSopSubmit} disabled={!sopFile || isUploadingSop || !sessionName} className="w-full">
-                {isUploadingSop ? (sopStage === 'upload' ? 'Uploading...' : 'Processing...') : 'Upload & Process SOP'}
+                {isUploadingSop ? (sopStage === 'upload' ? 'Uploading...' : 'Processing...') : 'Upload & Process Document'}
               </Button>
             </form>
           </TabsContent>
@@ -309,10 +299,10 @@ export function FileUploader({ onComparisonComplete }: FileUploaderProps) {
           <TabsContent value="fda">
             <form onSubmit={handleFdaSubmit} className="space-y-4">
               <div className="grid gap-2">
-                <Label htmlFor="fda-label">FDA Document Label</Label>
+                <Label htmlFor="fda-label">Document Label</Label>
                 <Input
                   id="fda-label"
-                  placeholder="Enter a descriptive label for this FDA document"
+                  placeholder="Enter a descriptive label for this regulatory document"
                   value={fdaLabel}
                   onChange={(e) => setFdaLabel(e.target.value)}
                   disabled={isUploadingFda}
@@ -320,7 +310,7 @@ export function FileUploader({ onComparisonComplete }: FileUploaderProps) {
               </div>
               
               <div className="grid gap-2">
-                <Label htmlFor="fda-file-upload">Upload FDA PDF Document</Label>
+                <Label htmlFor="fda-file-upload">Upload Regulatory Document</Label>
                 <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 flex flex-col items-center justify-center gap-2">
                   {fdaFile ? (
                     <div className="flex items-center gap-2">
@@ -333,7 +323,7 @@ export function FileUploader({ onComparisonComplete }: FileUploaderProps) {
                     <>
                       <Upload className="h-8 w-8 text-muted-foreground" />
                       <p className="text-sm text-muted-foreground text-center">
-                        Drag & drop your FDA PDF here or click to browse
+                        Click to browse
                       </p>
                     </>
                   )}
@@ -351,26 +341,13 @@ export function FileUploader({ onComparisonComplete }: FileUploaderProps) {
                 </div>
               </div>
               
-              {isUploadingFda && (
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>Uploading FDA document...</span>
-                    <span>{fdaProgress}%</span>
-                  </div>
-                  <Progress value={fdaProgress} />
-                </div>
-              )}
-              
               <Button type="submit" onClick={handleFdaSubmit} disabled={!fdaFile || isUploadingFda || !fdaLabel} className="w-full">
-                {isUploadingFda ? 'Uploading...' : 'Upload FDA Document'}
+                {isUploadingFda ? 'Uploading...' : 'Upload Regulatory Document'}
               </Button>
             </form>
           </TabsContent>
         </Tabs>
       </CardContent>
-      <CardFooter className="text-xs text-muted-foreground">
-        <p>Upload SOP documents for analysis and FDA documents for reference.</p>
-      </CardFooter>
     </Card>
   );
 }
