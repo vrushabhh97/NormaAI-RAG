@@ -23,11 +23,11 @@ const Index = () => {
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
                 Norma
                 <span className="block text-2xl md:text-3xl mt-2 font-medium text-muted-foreground">
-                  Your FDA Compliance Assistant
+                  Compliance. Simplified.
                 </span>
               </h1>
               <p className="max-w-2xl mx-auto text-lg md:text-xl text-muted-foreground">
-                Streamline SOP compliance checks with AI-powered analysis and automated comparison against FDA regulations
+                Easily audit and improve your SOPs, policies, and internal documentation with AI-powered insights and real-time comparison against FDA and other regulatory standards.
               </p>
             </div>
             
