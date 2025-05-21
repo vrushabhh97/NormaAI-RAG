@@ -18,11 +18,6 @@ export function Header() {
     <header className="sticky top-0 w-full bg-background/95 backdrop-blur-sm border-b z-50">
       <div className="w-full flex items-center justify-between h-14 pl-6 pr-4">
         <Link to="/" className="flex items-center gap-2">
-          <div className="rounded-full bg-primary p-1">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19 5V19H5V5H19ZM21 3H3V21H21V3ZM17 17H7V16H17V17ZM17 14H7V13H17V14ZM17 11H7V10H17V11ZM14 8H7V7H14V8Z" fill="white"/>
-            </svg>
-          </div>
           <span className="text-2xl font-bold tracking-tight">Norma</span>
         </Link>
         
